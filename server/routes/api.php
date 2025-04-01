@@ -9,6 +9,7 @@ Route::controller(GenderController::class)->group(function () {
     Route::get('/getGender/{genderId}', 'getGender');
     Route::post('/storeGender', 'storeGender');
     Route::put('/updateGender/{gender}', 'updateGender');
+    Route::put('/destroyGender/{gender}', 'destroyGender');
 });
 
 // Route::get('/user', function (Request $request) {

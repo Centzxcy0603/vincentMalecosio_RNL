@@ -15,6 +15,7 @@ class Gender extends Model
     protected $primaryKey = 'gender_id';
     protected $fillable = [
         'gender',
+        'is_deleted',
     ];
 
     public function users(): HasMany

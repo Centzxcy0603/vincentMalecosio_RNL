@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tbl_genders', function (Blueprint $table) {
             $table->id('gender_id');
             $table->string('gender', 55);
+            $table->tinyInteger('is_deleted')->default(false);
             $table->timestamps();
         });
     }
@@ -23,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('tbl_genders');
+        Schema::enableForeignKeyConstraints();
     }
 };

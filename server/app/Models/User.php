@@ -25,6 +25,7 @@ class User extends Authenticatable
         'contact_number',
         'email',
         'password',
+        'is_deleted',
     ];
     protected $hidden = [
         'password',
