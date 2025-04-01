@@ -71,8 +71,7 @@ const AddGenderForm = ({ onGenderAdded }: AddGenderFormProps) => {
       <form onSubmit={handleStoreGender}>
         <div className="form-group">
           <div className="mb-3">
-            <label htmlFor="gender">
-              Gender</label>
+            <label htmlFor="gender">Gender</label>
             <input
               type="text"
               className={`form-control ${state.errors.gender ? "is-invalid" : ""

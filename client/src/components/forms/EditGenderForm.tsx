@@ -129,7 +129,8 @@ const EditGenderForm = ({ onGenderUpdate }: EditGenderFormProps) => {
               <label htmlFor="gender">Gender</label>
               <input
                 type="text"
-                className={`form-control ${state.errors.gender ? 'is-invalid' : ''}`}
+                className={`form-control ${state.errors.gender ? "is-invalid" : ""
+                  }`}
                 name="gender"
                 id="gender"
                 value={state.gender}
