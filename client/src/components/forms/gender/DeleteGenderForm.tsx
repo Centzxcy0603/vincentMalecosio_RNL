@@ -1,40 +1,25 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import GenderService from "../../services/GenderService";
-import ErrorHandler from "../../handler/ErrorHandler";
-import Spinner from "../Spinner";
-import GenderFieldErrors from "../../interfaces/GenderFieldErrors";
-import SpinnerSmall from "../SpinnerSmall";
+import GenderService from "../../../services/GenderService";
+import ErrorHandler from "../../../handler/ErrorHandler";
+import Spinner from "../../Spinner";
+import SpinnerSmall from "../../SpinnerSmall";
 
-interface EditGenderFormProps {
-  onGenderUpdate: (message: string) => void;
+interface DeleteGenderFormProps {
+  onDeleteGender: (message: string) => void;
 }
 
-const EditGenderForm = ({ onGenderUpdate }: EditGenderFormProps) => {
+const DeleteGenderForm = ({ onDeleteGender }: DeleteGenderFormProps) => {
   const { gender_id } = useParams();
 
   const [state, setState] = useState({
     loadingGet: true,
-    loadingUpdate: false,
+    loadingDestroy: false,
     gender_id: 0,
     gender: "",
-    errors: {} as GenderFieldErrors,
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   const handleGetGender = (genderId: number) => {
-    setState((prevState) => ({
-      ...prevState,
-      loadingGet: true,
-    }));
-
     GenderService.getGender(genderId)
       .then((res) => {
         if (res.status === 200) {
@@ -61,44 +46,32 @@ const EditGenderForm = ({ onGenderUpdate }: EditGenderFormProps) => {
       });
   };
 
-  const handleUpdateGender = (e: FormEvent) => {
+  const handleDestroyGender = (e: FormEvent) => {
     e.preventDefault();
 
     setState((prevState) => ({
       ...prevState,
-      loadingUpdate: true,
+      loadingDestroy: true,
     }));
 
-    GenderService.updateGender(state.gender_id, state)
+    GenderService.destroyGender(state.gender_id)
       .then((res) => {
         if (res.status === 200) {
-          setState((prevState) => ({
-            ...prevState,
-            errors: {} as GenderFieldErrors,
-          }));
-
-          onGenderUpdate(res.data.message);
+          onDeleteGender(res.data.message);
         } else {
           console.error(
-            "Unexpected status error while updating gender: ",
+            "Unexpected status error while destroying gender: ",
             res.status
           );
         }
       })
       .catch((error) => {
-        if (error.response.status === 422) {
-          setState((prevState) => ({
-            ...prevState,
-            errors: error.response.data.errors,
-          }));
-        } else {
-          ErrorHandler(error, null);
-        }
+        console.error(error, null);
       })
       .finally(() => {
         setState((prevState) => ({
           ...prevState,
-          loadingUpdate: false,
+          loadingDestroy: false,
         }));
       });
   };
@@ -119,38 +92,40 @@ const EditGenderForm = ({ onGenderUpdate }: EditGenderFormProps) => {
           <Spinner />
         </div>
       ) : (
-        <form onSubmit={handleUpdateGender}>
+        <form onSubmit={handleDestroyGender}>
+          <h3>Are you sure do you want to delete this gender?</h3>
           <div className="form-group">
             <div className="mb-3">
               <label htmlFor="gender">Gender</label>
               <input
                 type="text"
-                className={`form-control ${state.errors.gender ? "is-invalid" : ""
-                  }`}
+                className="form-control"
                 name="gender"
                 id="gender"
                 value={state.gender}
-                onChange={handleInputChange}
+                readOnly
               />
-              {state.errors.gender && (
-                <p className="text-danger">{state.errors.gender[0]}</p>
-              )}
             </div>
             <div className="d-flex justify-content-end">
-              <Link to={"/"} className="btn btn-secondary me-1">
+              <Link
+                to={"/"}
+                className={`btn btn-secondary me-1 ${
+                  state.loadingDestroy ? "disabled" : ""
+                }`}
+              >
                 Back
               </Link>
               <button
                 type="submit"
-                className="btn btn-primary"
-                disabled={state.loadingUpdate}
+                className="btn btn-danger"
+                disabled={state.loadingDestroy}
               >
-                {state.loadingUpdate ? (
+                {state.loadingDestroy ? (
                   <>
-                    <SpinnerSmall /> Updating...
+                    <SpinnerSmall /> Deleting...
                   </>
                 ) : (
-                  "Update"
+                  "Yes"
                 )}
               </button>
             </div>
@@ -161,4 +136,4 @@ const EditGenderForm = ({ onGenderUpdate }: EditGenderFormProps) => {
   );
 };
 
-export default EditGenderForm;
+export default DeleteGenderForm;

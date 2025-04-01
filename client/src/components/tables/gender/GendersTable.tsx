@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Genders from "../../interfaces/Genders";
-import GenderService from "../../services/GenderService";
-import ErrorHandler from "../../handler/ErrorHandler";
-import Spinner from "../Spinner";
+import Genders from "../../../interfaces/Genders";
+import GenderService from "../../../services/GenderService";
+import ErrorHandler from "../../../handler/ErrorHandler";
+import Spinner from "../../Spinner";
 import { Link } from "react-router-dom";
 
 interface GendersTableProps {

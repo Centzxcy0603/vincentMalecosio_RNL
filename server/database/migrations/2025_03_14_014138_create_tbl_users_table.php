@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('last_name', 55);
             $table->string('suffix_name', 55)->nullable();
             $table->integer('age');
+            $table->date('birth_date');
             $table->unsignedBigInteger('gender_id');
             $table->string('address', 255);
             $table->string('contact_number', 55);

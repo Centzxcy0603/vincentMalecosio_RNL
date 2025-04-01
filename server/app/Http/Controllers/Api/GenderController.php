@@ -56,7 +56,8 @@ class GenderController extends Controller
         ], 200);
     }
 
-    public function destroyGender(Gender $gender){
+    public function destroyGender(Gender $gender)
+    {
         $gender->update([
             'is_deleted' => true
         ]);
