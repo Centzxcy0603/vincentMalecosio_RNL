@@ -9,6 +9,17 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function loadUsers()
+    {
+        $users = User::with(['gender'])
+            ->where('tbl_users.is_deleted', false)
+            ->get();
+
+        return response()->json([
+            'users' => $users
+        ], 200);
+    }
+
     public function storeUser(Request $request)
     {
         $validated = $request->validate([
