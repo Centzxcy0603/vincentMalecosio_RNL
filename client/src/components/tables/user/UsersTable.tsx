@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { Users } from "../../../interfaces/Users";
+=======
+import Users from "../../../interfaces/Users";
+>>>>>>> a9ea96b15d9d1b22b15cf9e5214e72a895d963b6
 import UserService from "../../../services/UserService";
 import ErrorHandler from "../../../handler/ErrorHandler";
 import Spinner from "../../Spinner";
 
 interface UsersTableProps {
   refreshUsers: boolean;
+<<<<<<< HEAD
   onEditUser: (user: Users) => void;
   onDeleteUser: (user: Users) => void;
 }
@@ -15,6 +20,11 @@ const UsersTable = ({
   onEditUser,
   onDeleteUser,
 }: UsersTableProps) => {
+=======
+}
+
+const UsersTable = ({ refreshUsers }: UsersTableProps) => {
+>>>>>>> a9ea96b15d9d1b22b15cf9e5214e72a895d963b6
   const [state, setState] = useState({
     loadingUsers: true,
     users: [] as Users[],
@@ -102,6 +112,7 @@ const UsersTable = ({
                 <td>{user.email}</td>
                 <td>
                   <div className="btn-group">
+<<<<<<< HEAD
                     <button
                       type="button"
                       className="btn btn-success"
@@ -114,6 +125,12 @@ const UsersTable = ({
                       className="btn btn-danger"
                       onClick={() => onDeleteUser(user)}
                     >
+=======
+                    <button type="button" className="btn btn-success">
+                      Edit
+                    </button>
+                    <button type="button" className="btn btn-danger">
+>>>>>>> a9ea96b15d9d1b22b15cf9e5214e72a895d963b6
                       Delete
                     </button>
                   </div>
