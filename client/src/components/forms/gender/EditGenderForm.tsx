@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import GenderService from "../../../services/GenderService";
 import ErrorHandler from "../../../handler/ErrorHandler";
 import Spinner from "../../Spinner";
-import GenderFieldErrors from "../../../interfaces/GenderFieldErrors";
+import { GenderFieldErrors } from "../../../interfaces/GenderFieldErrors";
 import SpinnerSmall from "../../SpinnerSmall";
 
 interface EditGenderFormProps {
@@ -125,9 +125,8 @@ const EditGenderForm = ({ onGenderUpdate }: EditGenderFormProps) => {
               <label htmlFor="gender">Gender</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.gender ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.gender ? "is-invalid" : ""
+                  }`}
                 name="gender"
                 id="gender"
                 value={state.gender}

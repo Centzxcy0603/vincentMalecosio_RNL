@@ -1056,7 +1056,6 @@
         },
         {
             "name": "laravel/framework",
-<<<<<<< HEAD
             "version": "v12.7.2",
             "source": {
                 "type": "git",
@@ -1067,18 +1066,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/a4ba76e06fe6dd02312359f8184ab259900a7780",
                 "reference": "a4ba76e06fe6dd02312359f8184ab259900a7780",
-=======
-            "version": "v12.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "0219fdf28b749460e2f9ebd4e283a00d58b8f758"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/0219fdf28b749460e2f9ebd4e283a00d58b8f758",
-                "reference": "0219fdf28b749460e2f9ebd4e283a00d58b8f758",
->>>>>>> a9ea96b15d9d1b22b15cf9e5214e72a895d963b6
                 "shasum": ""
             },
             "require": {
@@ -1280,11 +1267,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-<<<<<<< HEAD
             "time": "2025-04-03T18:00:49+00:00"
-=======
-            "time": "2025-04-02T16:25:03+00:00"
->>>>>>> a9ea96b15d9d1b22b15cf9e5214e72a895d963b6
         },
         {
             "name": "laravel/prompts",
@@ -8147,12 +8130,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

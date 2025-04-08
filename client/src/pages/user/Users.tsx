@@ -2,7 +2,6 @@ import { useState } from "react";
 import AddUserModal from "../../components/modals/user/AddUserModal";
 import MainLayout from "../layout/MainLayout";
 import UsersTable from "../../components/tables/user/UsersTable";
-<<<<<<< HEAD
 import EditUserModal from "../../components/modals/user/EditUserModal";
 import type { Users } from "../../interfaces/Users";
 import DeleteUserModal from "../../components/modals/user/DeleteUserModal";
@@ -10,11 +9,6 @@ import DeleteUserModal from "../../components/modals/user/DeleteUserModal";
 const Users = () => {
   const [refreshUsers, setRefreshUsers] = useState(false);
   const [selectedUser, setSelectedUser] = useState<Users | null>(null);
-=======
-
-const Users = () => {
-  const [refreshUsers, setRefreshUsers] = useState(false);
->>>>>>> a9ea96b15d9d1b22b15cf9e5214e72a895d963b6
   const [openAddUserModal, setOpenAddUserModal] = useState(false);
   const [openEditUserModal, setOpenEditUserModal] = useState(false);
   const [openDeleteUserModal, setOpenDeleteUserModal] = useState(false);
@@ -67,15 +61,11 @@ const Users = () => {
           Add User
         </button>
       </div>
-<<<<<<< HEAD
       <UsersTable
         refreshUsers={refreshUsers}
         onEditUser={handleOpenEditUserModal}
         onDeleteUser={handleOpenDeleteUserModal}
       />
-=======
-      <UsersTable refreshUsers={refreshUsers} />
->>>>>>> a9ea96b15d9d1b22b15cf9e5214e72a895d963b6
     </>
   );
 

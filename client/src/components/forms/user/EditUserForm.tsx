@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { Genders } from "../../../interfaces/Genders";
-import { UserFieldErrors } from "../../../interfaces/UserFieldErrors";
+import { UserFieldErrors } from "../../../interfaces/UserFielderrors";
 import GenderService from "../../../services/GenderService";
 import ErrorHandler from "../../../handler/ErrorHandler";
 import { Users } from "../../../interfaces/Users";
@@ -154,9 +154,8 @@ const EditUserForm = ({
               <label htmlFor="first_name">First Name</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.first_name ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.first_name ? "is-invalid" : ""
+                  }`}
                 name="first_name"
                 id="first_name"
                 value={state.first_name}
@@ -172,9 +171,8 @@ const EditUserForm = ({
               <label htmlFor="middle_name">Middle Name</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.middle_name ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.middle_name ? "is-invalid" : ""
+                  }`}
                 name="middle_name"
                 id="middle_name"
                 value={state.middle_name}
@@ -190,9 +188,8 @@ const EditUserForm = ({
               <label htmlFor="last_name">Last Name</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.last_name ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.last_name ? "is-invalid" : ""
+                  }`}
                 name="last_name"
                 id="last_name"
                 value={state.last_name}
@@ -206,9 +203,8 @@ const EditUserForm = ({
               <label htmlFor="suffix_name">Suffix Name</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.suffix_name ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.suffix_name ? "is-invalid" : ""
+                  }`}
                 name="suffix_name"
                 id="suffix_name"
                 value={state.suffix_name}
@@ -224,9 +220,8 @@ const EditUserForm = ({
               <label htmlFor="birth_date">Birth Date</label>
               <input
                 type="date"
-                className={`form-control ${
-                  state.errors.birth_date ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.birth_date ? "is-invalid" : ""
+                  }`}
                 name="birth_date"
                 id="birth_date"
                 value={state.birth_date}
@@ -247,9 +242,8 @@ const EditUserForm = ({
             <div className="mb-3">
               <label htmlFor="gender">Gender</label>
               <select
-                className={`form-select ${
-                  state.errors.gender ? "is-invalid" : ""
-                }`}
+                className={`form-select ${state.errors.gender ? "is-invalid" : ""
+                  }`}
                 name="gender"
                 id="gender"
                 value={state.gender}
@@ -274,9 +268,8 @@ const EditUserForm = ({
               <label htmlFor="address">Address</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.address ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.address ? "is-invalid" : ""
+                  }`}
                 name="address"
                 id="address"
                 value={state.address}
@@ -290,9 +283,8 @@ const EditUserForm = ({
               <label htmlFor="contact_number">Contact Number</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.contact_number ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.contact_number ? "is-invalid" : ""
+                  }`}
                 name="contact_number"
                 id="contact_number"
                 value={state.contact_number}
@@ -308,9 +300,8 @@ const EditUserForm = ({
               <label htmlFor="email">Email</label>
               <input
                 type="text"
-                className={`form-control ${
-                  state.errors.email ? "is-invalid" : ""
-                }`}
+                className={`form-control ${state.errors.email ? "is-invalid" : ""
+                  }`}
                 name="email"
                 id="email"
                 value={state.email}
