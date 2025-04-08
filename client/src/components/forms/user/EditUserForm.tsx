@@ -1,30 +1,28 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import ErrorHandler from "../../../handler/ErrorHandler";
-import GenderService from "../../../services/GenderService";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { Genders } from "../../../interfaces/Genders";
 import { UserFieldErrors } from "../../../interfaces/UserFieldErrors";
+import GenderService from "../../../services/GenderService";
+import ErrorHandler from "../../../handler/ErrorHandler";
+import { Users } from "../../../interfaces/Users";
 import UserService from "../../../services/UserService";
 
-interface AddUserFormProps {
+interface EditUserFormProps {
+  user: Users | null;
   setSubmitForm: React.MutableRefObject<(() => void) | null>;
-  setLoadingStore: (loading: boolean) => void;
-  onUserAdded: (message: string) => void;
+  setLoadingUpdate: (loading: boolean) => void;
+  onUserUpdated: (message: string) => void;
 }
 
-const AddUserForm = ({
+const EditUserForm = ({
+  user,
   setSubmitForm,
-  setLoadingStore,
-  onUserAdded,
-}: AddUserFormProps) => {
+  setLoadingUpdate,
+  onUserUpdated,
+}: EditUserFormProps) => {
   const [state, setState] = useState({
     loadingGenders: true,
     genders: [] as Genders[],
+    user_id: 0,
     first_name: "",
     middle_name: "",
     last_name: "",
@@ -34,28 +32,8 @@ const AddUserForm = ({
     address: "",
     contact_number: "",
     email: "",
-    password: "",
-    password_confirmation: "",
     errors: {} as UserFieldErrors,
   });
-
-  const handleResetNecessaryFields = () => {
-    setState((prevState) => ({
-      ...prevState,
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      suffix_name: "",
-      birth_date: "",
-      gender: "",
-      address: "",
-      contact_number: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
-      errors: {} as UserFieldErrors,
-    }));
-  };
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -93,19 +71,18 @@ const AddUserForm = ({
       });
   };
 
-  const handleStoreUser = (e: FormEvent) => {
+  const handleUpdateUser = (e: FormEvent) => {
     e.preventDefault();
 
-    setLoadingStore(true);
+    setLoadingUpdate(true);
 
-    UserService.storeUser(state)
+    UserService.updateUser(state.user_id, state)
       .then((res) => {
         if (res.status === 200) {
-          handleResetNecessaryFields();
-          onUserAdded(res.data.message);
+          onUserUpdated(res.data.message);
         } else {
           console.error(
-            "Unexpected status error while storing user: ",
+            "Unexpected status error while updating user: ",
             res.status
           );
         }
@@ -121,7 +98,7 @@ const AddUserForm = ({
         }
       })
       .finally(() => {
-        setLoadingStore(false);
+        setLoadingUpdate(false);
       });
   };
 
@@ -130,16 +107,47 @@ const AddUserForm = ({
   useEffect(() => {
     handleLoadGenders();
 
+    if (user) {
+      setState((prevState) => ({
+        ...prevState,
+        user_id: user.user_id,
+        first_name: user.first_name,
+        middle_name: user.middle_name,
+        last_name: user.last_name,
+        suffix_name: user.suffix_name,
+        birth_date: user.birth_date,
+        gender: user.gender.gender_id.toString(),
+        address: user.address,
+        contact_number: user.contact_number,
+        email: user.email,
+      }));
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        user_id: 0,
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        suffix_name: "",
+        birth_date: "",
+        gender: "",
+        address: "",
+        contact_number: "",
+        email: "",
+        errors: {} as UserFieldErrors,
+      }));
+    }
+
     setSubmitForm.current = () => {
       if (formRef.current) {
         formRef.current.requestSubmit();
       }
     };
-  }, [setSubmitForm]);
+  }, [user, setSubmitForm]);
 
   return (
     <>
-      <form ref={formRef} onSubmit={handleStoreUser}>
+      <form ref={formRef} onSubmit={handleUpdateUser}>
         <div className="row">
           <div className="col-md-6">
             <div className="mb-3">
@@ -234,6 +242,8 @@ const AddUserForm = ({
                 </span>
               )}
             </div>
+          </div>
+          <div className="col-md-6">
             <div className="mb-3">
               <label htmlFor="gender">Gender</label>
               <select
@@ -260,8 +270,6 @@ const AddUserForm = ({
                 <span className="text-danger">{state.errors.gender[0]}</span>
               )}
             </div>
-          </div>
-          <div className="col-md-6">
             <div className="mb-3">
               <label htmlFor="address">Address</label>
               <input
@@ -312,42 +320,6 @@ const AddUserForm = ({
                 <span className="text-danger">{state.errors.email[0]}</span>
               )}
             </div>
-            <div className="mb-3">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                className={`form-control ${
-                  state.errors.password ? "is-invalid" : ""
-                }`}
-                name="password"
-                id="password"
-                value={state.password}
-                onChange={handleInputChange}
-              />
-              {state.errors.password && (
-                <span className="text-danger">{state.errors.password[0]}</span>
-              )}
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password_confirmation">
-                Password Confirmation
-              </label>
-              <input
-                type="password"
-                className={`form-control ${
-                  state.errors.password_confirmation ? "is-invalid" : ""
-                }`}
-                name="password_confirmation"
-                id="password_confirmation"
-                value={state.password_confirmation}
-                onChange={handleInputChange}
-              />
-              {state.errors.password_confirmation && (
-                <span className="text-danger">
-                  {state.errors.password_confirmation[0]}
-                </span>
-              )}
-            </div>
           </div>
         </div>
       </form>
@@ -355,4 +327,4 @@ const AddUserForm = ({
   );
 };
 
-export default AddUserForm;
+export default EditUserForm;

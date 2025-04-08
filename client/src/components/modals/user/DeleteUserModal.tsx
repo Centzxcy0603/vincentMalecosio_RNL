@@ -1,23 +1,26 @@
 import { useRef, useState } from "react";
-import AddUserForm from "../../forms/user/AddUserForm";
-import SpinnerSmall from "../../SpinnerSmall";
+import DeleteUserForm from "../../forms/user/DeleteUserForm";
 import AlertMessage from "../../AlertMessage";
+import SpinnerSmall from "../../SpinnerSmall";
+import { Users } from "../../../interfaces/Users";
 
-interface AddUserModalProps {
+interface DeleteUserModalProps {
   showModal: boolean;
+  user: Users | null;
   onRefreshUsers: (refresh: boolean) => void;
   onClose: () => void;
 }
 
-const AddUserModal = ({
+const DeleteUserModal = ({
   showModal,
+  user,
   onRefreshUsers,
   onClose,
-}: AddUserModalProps) => {
+}: DeleteUserModalProps) => {
   const submitFormRef = useRef<() => void | null>(null);
 
   const [refreshUsers, setRefreshUsers] = useState(false);
-  const [loadingStore, setLoadingStore] = useState(false);
+  const [loadingDestroy, setLoadingDestroy] = useState(false);
 
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
@@ -49,7 +52,7 @@ const AddUserModal = ({
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5">Add User</h1>
+              <h1 className="modal-title fs-5">Delete User</h1>
             </div>
             <div className="modal-body">
               <div className="mb-3">
@@ -60,10 +63,14 @@ const AddUserModal = ({
                   onClose={handleCloseAlertMessage}
                 />
               </div>
-              <AddUserForm
+              <p className="fs-4">
+                Are you sure do you want to delete this user?
+              </p>
+              <DeleteUserForm
+                user={user}
                 setSubmitForm={submitFormRef}
-                setLoadingStore={setLoadingStore}
-                onUserAdded={(message) => {
+                setLoadingDestroy={setLoadingDestroy}
+                onDeletedUser={(message) => {
                   handleShowAlertMessage(message, true, true);
                   setRefreshUsers(!refreshUsers);
                   onRefreshUsers(refreshUsers);
@@ -74,23 +81,23 @@ const AddUserModal = ({
               <button
                 type="button"
                 className="btn btn-secondary"
+                disabled={loadingDestroy}
                 onClick={onClose}
-                disabled={loadingStore}
               >
                 Close
               </button>
               <button
                 type="submit"
-                className="btn btn-primary"
-                disabled={loadingStore}
+                className="btn btn-danger"
+                disabled={loadingDestroy}
                 onClick={() => submitFormRef.current?.()}
               >
-                {loadingStore ? (
+                {loadingDestroy ? (
                   <>
-                    <SpinnerSmall /> Saving User...
+                    <SpinnerSmall /> Deleting User...
                   </>
                 ) : (
-                  "Save User"
+                  "Delete User"
                 )}
               </button>
             </div>
@@ -101,4 +108,4 @@ const AddUserModal = ({
   );
 };
 
-export default AddUserModal;
+export default DeleteUserModal;

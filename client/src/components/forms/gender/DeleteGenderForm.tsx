@@ -93,7 +93,7 @@ const DeleteGenderForm = ({ onDeleteGender }: DeleteGenderFormProps) => {
         </div>
       ) : (
         <form onSubmit={handleDestroyGender}>
-          <h3>Are you sure do you want to delete this gender?</h3>
+          <h3>Do you really want to delete this user?</h3>
           <div className="form-group">
             <div className="mb-3">
               <label htmlFor="gender">Gender</label>
@@ -109,9 +109,8 @@ const DeleteGenderForm = ({ onDeleteGender }: DeleteGenderFormProps) => {
             <div className="d-flex justify-content-end">
               <Link
                 to={"/"}
-                className={`btn btn-secondary me-1 ${
-                  state.loadingDestroy ? "disabled" : ""
-                }`}
+                className={`btn btn-secondary me-1 ${state.loadingDestroy ? "disabled" : ""
+                  }`}
               >
                 Back
               </Link>
