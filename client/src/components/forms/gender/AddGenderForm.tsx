@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import GenderService from "../../../services/GenderService";
 import ErrorHandler from "../../../handler/ErrorHandler";
-import GenderFieldErrors from "../../../interfaces/GenderFieldErrors";
+import { GenderFieldErrors } from "../../../interfaces/GenderFieldErrors"
 import SpinnerSmall from "../../SpinnerSmall";
 
 interface AddGenderFormProps {
@@ -74,9 +74,8 @@ const AddGenderForm = ({ onGenderAdded }: AddGenderFormProps) => {
             <label htmlFor="gender">Gender</label>
             <input
               type="text"
-              className={`form-control ${
-                state.errors.gender ? "is-invalid" : ""
-              }`}
+              className={`form-control ${state.errors.gender ? "is-invalid" : ""
+                }`}
               id="gender"
               name="gender"
               value={state.gender}
