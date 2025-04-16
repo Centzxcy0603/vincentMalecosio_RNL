@@ -137,7 +137,7 @@ const EditGenderForm = ({ onGenderUpdate }: EditGenderFormProps) => {
               )}
             </div>
             <div className="d-flex justify-content-end">
-              <Link to={"/"} className="btn btn-secondary me-1">
+              <Link to={"/genders"} className="btn btn-secondary me-1">
                 Back
               </Link>
               <button
